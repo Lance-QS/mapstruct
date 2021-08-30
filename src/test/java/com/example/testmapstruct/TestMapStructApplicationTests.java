@@ -4,6 +4,7 @@ package com.example.testmapstruct;
 import com.example.testmapstruct.convert.EmployeeWorkConvert;
 import com.example.testmapstruct.dto.EmployeeWorkDto;
 import com.example.testmapstruct.po.EmployeeWorkPo;
+import com.example.testmapstruct.vo.EmployeeVo;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.junit.jupiter.api.Test;
@@ -24,26 +25,32 @@ class TestMapStructApplicationTests {
     @Test
     void test() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
         // 对象个数
-        int n = 10;
+        int n = 10000000;
         // 循环复制次数
         int m = 1;
 
         //  构建po对象
         List<EmployeeWorkPo> pos = createPos(n);
         // mapStruct
-        testMapStruct(n, m, pos);
+//        testMapStruct(n, m, pos);
 
         // hutools的BenUtil
-        testHutoolsBeanUtil(n, m, pos);
+//        testHutoolsBeanUtil(n, m, pos);
 
         // spring的BeanUtils
-        testSpringBeanUtils(n, m, pos);
+//        testSpringBeanUtils(n, m, pos);
 
         // apache的BeanUtils
-        testApacheBeanUtils(n, m, pos);
+//        testApacheBeanUtils(n, m, pos);
 
         // apache的PropertyUtils
-        testApachePropertyUtils(n, m, pos);
+//        testApachePropertyUtils(n, m, pos);
+
+        // vo构造函数
+//        testEmployeeVo(n, m, pos);
+
+        testMapStruct(n, m, pos);
+        testEmployeeVo(n, m, pos);
     }
 
     private void testApachePropertyUtils(int n, int m, List<EmployeeWorkPo> pos) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException {
@@ -110,6 +117,19 @@ class TestMapStructApplicationTests {
         }
         long end = System.currentTimeMillis();
         System.out.println("mapStruct复制" + n + "个对象，" + m + "次所花时间为：" + (end - start) + "ms");
+    }
+
+    private void testEmployeeVo(int n, int m, List<EmployeeWorkPo> pos) {
+        long start = System.currentTimeMillis();
+        for (int i = 0; i < m; i++) {
+            List<EmployeeVo> vos = new ArrayList<>(pos.size());
+            for (EmployeeWorkPo po : pos) {
+                EmployeeVo vo = new EmployeeVo(po);
+                vos.add(vo);
+            }
+        }
+        long end = System.currentTimeMillis();
+        System.out.println("Vo有参构造有参测试" + n + "个对象，" + m + "次所花时间为：" + (end - start) + "ms");
     }
 
 
