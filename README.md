@@ -1,0 +1,5 @@
+# mapstruct
+MapStruct是一款对象转换的工具，比如在日常开发种DTO,DO,VO对象转换；
+MapStruct与各种BeanUtil性能比较
+hutools的BeanUtil、spring的BeanUtils、apache的BeanUtils、apache的PropertyUtils
+Spring的BeanUtil比其他的BeanUtil快的原因是其他的BeanUtil做了很多的校验，兼容，以及日志打印处理，所以在日常开发中如果非要用BeanUtil的话推荐使用spring的BeanUtils;
